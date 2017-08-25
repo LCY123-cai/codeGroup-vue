@@ -14,7 +14,6 @@ export default {
   data () {
     return {
       msg: '阿尔法程序协会人员管理系统',
-      logoUrl: './assets/codeLogo.jpg'
     }
   },
   methods: {
