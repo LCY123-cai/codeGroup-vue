@@ -1,5 +1,6 @@
 <template>
   <div class="hello">
+    <img :src="logo">
     <h1>{{ msg }}</h1>
     <h2>Developer：Stalary，Bella</h2>
     <Button type="info" @click="login">登陆</Button>
@@ -8,11 +9,13 @@
 </template>
 
 <script>
+import logo from '@/assets/codeLogo.png'
   export default {
     name: 'hello',
     data () {
       return {
-        msg: '阿尔法程序协会人员管理系统'
+        msg: '阿尔法程序协会人员管理系统',
+        logo
       }
     },
     methods: {
