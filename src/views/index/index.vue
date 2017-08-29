@@ -3,8 +3,8 @@
     <img :src="logo">
     <h1>{{ msg }}</h1>
     <h2>Developer：Stalary，Bella</h2>
-    <Button type="info" @click="login">登陆</Button>
-    <Button type="info" @click="handleSubmit()">注册</Button>
+    <Button type="info" @click="login()">登陆</Button>
+    <Button type="info" @click="register()">注册</Button>
   </div>
 </template>
 
@@ -21,6 +21,9 @@ import logo from '@/assets/codeLogo.png'
     methods: {
       login() {
         this.$router.push({name:'userLogin'});
+      },
+      register(){
+        this.$router.push({name:'register'});
       }
     }
   }
