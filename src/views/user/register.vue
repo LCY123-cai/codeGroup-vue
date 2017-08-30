@@ -31,7 +31,7 @@
             <Input v-model="formValidate.region" placeholder="请输入家乡所在地"></Input>
         </FormItem>
         <FormItem>
-            <Button type="primary" @click="handleSubmit()">提交</Button>
+            <Button type="primary" @click="handleSubmit()">注册</Button>
             <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
             <Button type="primary" @click="back()">返回</Button>
         </FormItem>
