@@ -20,7 +20,7 @@ import logo from '@/assets/codeLogo.png'
     },
     methods: {
       login() {
-        this.$router.push({name:'userLogin'});
+        this.$router.push({name:'login'});
       },
       register(){
         this.$router.push({name:'register'});
