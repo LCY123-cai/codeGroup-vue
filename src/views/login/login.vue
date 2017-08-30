@@ -1,30 +1,30 @@
 <template>
-  <Form ref="formCustom" :model="formCustom" :rules="ruleValidate" :label-width="80">
+  <Form ref="loginForm" :model="loginForm" :rules="ruleValidate" :label-width="80">
     <Form-item label="学号" prop="account">
-      <Input type="text" v-model="formCustom.account" />
+      <Input type="text" v-model="loginForm.account" />
     </Form-item>
     <Form-item label="密码" prop="password">
-      <Input type="password" v-model="formCustom.password" />
+      <Input type="password" v-model="loginForm.password" />
     </Form-item>
             <FormItem label="身份" prop="role">
-            <RadioGroup v-model="formCustom.role">
+            <RadioGroup v-model="loginForm.role">
                 <Radio label="admin">管理员</Radio>
                 <Radio label="user">普通用户</Radio>
-              {{ formCustom.role }}
             </RadioGroup>
         </FormItem>
     <Form-item>
-      <Button type="primary" @click="handleSubmit('formCustom')">登陆</Button>
-      <Button type="ghost" @click="handleReset('formCustom')" style="margin-left: 8px">重置</Button>
+      <Button type="primary" @click="handleLogin">登陆</Button>
+      <Button type="ghost" @click="handleReset('loginForm')" style="margin-left: 8px">重置</Button>
       <Button type="primary" @click="back()">返回</Button>
     </Form-item>
   </Form>
 </template>
 <script>
+  import { userLogin,adminLogin } from '@/api/login';
   export default {
            data () {
             return {
-                formCustom: {
+                loginForm: {
                     account: '',
                     password: '',
                     role: ''
@@ -43,12 +43,20 @@
             }
         },
     methods: {
-      handleSubmit (name) {
-        this.$refs[name].validate((valid) => {
+      handleLogin() {
+        this.$refs.loginForm.validate(valid => {
           if (valid) {
-            this.$Message.success('提交成功!');
-          } else {
-            this.$Message.error('表单验证失败!');
+            if (this.loginForm.role === 'admin') {
+              adminLogin(this.loginForm.account, this.loginForm.password)
+                .then(res => {
+                  this.$Message.success("登陆成功");
+                })
+            } else {
+              userLogin(this.loginForm.account, this.loginForm.password)
+                .then(res => {
+                  this.$Message.success("登陆成功");
+                })
+            }
           }
         })
       },

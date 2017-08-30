@@ -20,7 +20,7 @@ export default {
 
     login() {
       var self = this;
-      self.$router.push({name:'userLogin'});
+      self.$router.push({name:'login'});
     }
   }
 }
