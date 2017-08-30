@@ -10,7 +10,10 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.16.2",
+    "element-ui": "^1.4.3",
     "iview": "^2.1.0",
+    "qs": "latest",
     "vue": "^2.3.3",
     "vue-router": "^2.6.0"
   },
