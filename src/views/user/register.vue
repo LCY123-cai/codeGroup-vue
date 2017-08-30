@@ -3,17 +3,31 @@
         <FormItem label="姓名" prop="name">
             <Input v-model="formValidate.name" placeholder="请输入姓名"></Input>
         </FormItem>
+        <FormItem label="性别" prop="gender">
+            <RadioGroup v-model="formValidate.gender">
+                <Radio label="male">男</Radio>
+                <Radio label="female">女</Radio>
+            </RadioGroup>
+        </FormItem>
+        <FormItem label="年龄" prop="age">
+            <Input v-model="formValidate.age" placeholder="请输入年龄"></Input>
+        </FormItem>
+        <FormItem label="年级" prop="year">
+            <Input v-model="formValidate.year" placeholder="请输入年级" ></Input>
+        </FormItem>
+        <FormItem label="专业" prop="major">
+            <Input v-model="formValidate.major" placeholder="请输入专业"></Input>
+        </FormItem>
+        <FormItem label="手机号" prop="tel">
+            <Input v-model="formValidate.tel" placeholder="请输入手机号"></Input>
+        </FormItem>
         <FormItem label="邮箱" prop="mail">
             <Input v-model="formValidate.mail" placeholder="请输入邮箱"></Input>
         </FormItem>
-        <FormItem label="城市" prop="city">
-            <Select v-model="formValidate.city" placeholder="请选择所在地">
-                <Option value="beijing">北京市</Option>
-                <Option value="shanghai">上海市</Option>
-                <Option value="shenzhen">深圳市</Option>
-            </Select>
+        <FormItem label="所在地" prop="ragion">
+            <Input v-model="formValidate.ragion" placeholder="请输入家乡所在地"></Input>
         </FormItem>
-        <FormItem label="选择日期">
+        <FormItem label="注册日期">
             <Row>
                 <Col span="11">
                     <FormItem prop="date">
@@ -28,70 +42,73 @@
                 </Col>
             </Row>
         </FormItem>
-        <FormItem label="性别" prop="gender">
-            <RadioGroup v-model="formValidate.gender">
-                <Radio label="male">男</Radio>
-                <Radio label="female">女</Radio>
-            </RadioGroup>
-        </FormItem>
-        <FormItem label="爱好" prop="interest">
-            <CheckboxGroup v-model="formValidate.interest">
-                <Checkbox label="吃饭"></Checkbox>
-                <Checkbox label="睡觉"></Checkbox>
-                <Checkbox label="跑步"></Checkbox>
-                <Checkbox label="看电影"></Checkbox>
-            </CheckboxGroup>
-        </FormItem>
-        <FormItem label="介绍" prop="desc">
-            <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></Input>
-        </FormItem>
         <FormItem>
             <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
             <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
+            <Button type="primary" @click="back()">返回</Button>
         </FormItem>
     </Form>
 </template>
 <script>
+import { validatePhoneNumber } from '@/utils/validate';
+import { register } from '@/api/register';
+
     export default {
         data () {
+            const validatePhone = (rule, value, callback) => {
+              if (value === '') {
+                callback(new Error('手机号不能为空'))
+                } else if (!validatePhoneNumber(value)) {
+                callback(new Error('请输入正确的手机号'));
+                } else {
+                callback();
+            }
+        };
             return {
                 formValidate: {
                     name: '',
-                    mail: '',
-                    city: '',
                     gender: '',
-                    interest: [],
+                    age:'',
+                    year:'',
+                    major:'',
+                    tel:'',
+                    mail: '',
+                    ragion:'',
                     date: '',
-                    time: '',
-                    desc: ''
+                    time: ''
                 },
                 ruleValidate: {
                     name: [
                         { required: true, message: '姓名不能为空', trigger: 'blur' }
                     ],
+                    gender: [
+                        { required: true, message: '请选择性别', trigger: 'change' }
+                    ],
+                    age: [
+                        { required: true, message: '年龄不能为空', trigger: 'blur' }
+                    ],
+                    year: [
+                        { required: true, message: '年级不能为空', trigger: 'blur' }
+                    ],
+                    major: [
+                        { required: true, message: '专业不能为空', trigger: 'blur' }
+                    ],
+                    tel: [
+                        {required: true, trigger: 'blur', validator: validatePhone}
+                    ],
                     mail: [
                         { required: true, message: '邮箱不能为空', trigger: 'blur' },
                         { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
                     ],
-                    city: [
-                        { required: true, message: '请选择城市', trigger: 'change' }
+                    ragion: [
+                        { required: true, message: '所在地不能为空', trigger: 'blur' }
                     ],
-                    gender: [
-                        { required: true, message: '请选择性别', trigger: 'change' }
-                    ],
-                    interest: [
-                        { required: true, type: 'array', min: 1, message: '至少选择一个爱好', trigger: 'change' },
-                        { type: 'array', max: 2, message: '最多选择两个爱好', trigger: 'change' }
-                    ],
+                    
                     date: [
                         { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
                     ],
                     time: [
                         { required: true, type: 'date', message: '请选择时间', trigger: 'change' }
-                    ],
-                    desc: [
-                        { required: true, message: '请输入个人介绍', trigger: 'blur' },
-                        { type: 'string', min: 20, message: '介绍不能少于20字', trigger: 'blur' }
                     ]
                 }
             }
@@ -100,7 +117,12 @@
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        this.$Message.success('提交成功!');
+                            //this.$Message.success('提交成功!');
+                            /*fetchData() {
+                              register().then(res => {
+                                this.tableData = res.data;
+                              })
+                          }*/
                     } else {
                         this.$Message.error('表单验证失败!');
                     }
@@ -108,7 +130,13 @@
             },
             handleReset (name) {
                 this.$refs[name].resetFields();
-            }
+            },
+            back(){
+                this.$router.back();
+            },
+            /*created() {
+              this.fetchData();
+            }*/
         }
     }
 </script>

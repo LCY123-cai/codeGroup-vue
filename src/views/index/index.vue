@@ -3,8 +3,8 @@
     <img :src="logo">
     <h1>{{ msg }}</h1>
     <h2>Developer：Stalary，Bella</h2>
-    <Button type="info" @click="login()">登陆</Button>
-    <Button type="info" @click="register()">注册</Button>
+    <Button type="info" @click="login">登陆</Button>
+    <Button type="info" @click="register">注册</Button>
   </div>
 </template>
 
