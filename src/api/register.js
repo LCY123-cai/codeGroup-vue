@@ -1,12 +1,11 @@
 import fetch from '@/utils/fetch';
 
-export function register(studentNo, password) {
+export function register(result) {
   return fetch({
     url: '/login/userRegister',
     method: 'post',
     data: {
-      studentNo,
-      password
+      result
     }
   });
 }

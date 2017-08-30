@@ -48,12 +48,12 @@
           if (valid) {
             if (this.loginForm.role === 'admin') {
               adminLogin(this.loginForm.account, this.loginForm.password)
-                .then(res => {
+                .then(() => {
                   this.$Message.success("登陆成功");
                 })
             } else {
               userLogin(this.loginForm.account, this.loginForm.password)
-                .then(res => {
+                .then(() => {
                   this.$Message.success("登陆成功");
                 })
             }
