@@ -95,12 +95,14 @@ import { register } from '@/api/register';
         },
         methods: {
             handleSubmit () {
-                const result = JSON.stringify(this.formValidate);
-                this.$refs.formValidate.validate(valid => {
+              this.$refs.formValidate.validate(valid => {
                     if (valid) {
+                      const result = JSON.stringify(this.formValidate);
                       register(result).then(() => {
                         this.$Message.success("注册成功！");
-                        })
+                        }).catch(error => {
+                        this.$Message.error(error);
+                      });
                     }
                 })
             },
