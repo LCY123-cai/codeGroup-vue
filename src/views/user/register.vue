@@ -4,7 +4,7 @@
         <Input v-model="formValidate.phone" placeholder="请输入手机号"></Input>
       </FormItem>
       <FormItem label="密码" prop="password">
-        <Input v-model="formValidate.password" placeholder="请输入密码"></Input>
+        <Input v-model="formValidate.password" placeholder="请输入密码" type="password"></Input>
       </FormItem>
       <FormItem label="学号" prop="studentNo">
         <Input v-model="formValidate.studentNo" placeholder="请输入学号"></Input>
@@ -31,7 +31,7 @@
             <Input v-model="formValidate.region" placeholder="请输入家乡所在地"></Input>
         </FormItem>
         <FormItem>
-            <Button type="primary" @click="handleSubmit()">注册</Button>
+            <Button type="primary" @click="handleSubmit('formValidate')">注册</Button>
             <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
             <Button type="primary" @click="back()">返回</Button>
         </FormItem>
@@ -94,17 +94,25 @@ import { register } from '@/api/register';
             }
         },
         methods: {
-            handleSubmit () {
-              this.$refs.formValidate.validate(valid => {
+            handleSubmit (name) {
+              this.$refs[name].validate((valid) => {
                     if (valid) {
                       const result = JSON.stringify(this.formValidate);
-                      register(result).then(() => {
-                        this.$Message.success("注册成功！");
-                        }).catch(error => {
-                        this.$Message.error(error);
+                      register(result).then((res) => {
+                        if(res.data.code === 1) {
+                          this.$Message.success("注册成功！");
+                        } else {
+                          this.$Message.error(res.data.date);
+                        }
+                    }).catch((e)=>{
+                        this.$Message.error({
+                          content: "注册失败",
+                          duration: 1.5,
+                          closable: true
+                        })
                       });
-                    }
-                })
+                }
+              })
             },
             handleReset (name) {
                 this.$refs[name].resetFields();

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import qs from 'qs';
-import { Message } from 'element-ui';
 import store from '../store';
 import { getToken } from '@/utils/auth';
 
@@ -24,21 +23,21 @@ service.interceptors.request.use(config => {
   // Do something with request error
   console.log(error); // for debug
   Promise.reject(error);
-})
+});
 
 // respone拦截器
-service.interceptors.response.use(
-  response => {
-  /**
-  * code为非20000是抛错 可结合自己业务进行修改
-  */
-    const res = response.data;
-    if (res.code !== 1) {
-      Message({
-        message: res.data,
-        type: 'error',
-        duration: 5 * 1000
-      });
+// service.interceptors.response.use(
+//   response => {
+//   /**
+//   * code为非20000是抛错 可结合自己业务进行修改
+//   */
+//     const res = response.data;
+//     if (res.code !== 1) {
+//       Message({
+//         message: res.data,
+//         type: 'error',
+//         duration: 5 * 1000
+//       });
 
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       // if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
@@ -52,20 +51,20 @@ service.interceptors.response.use(
       //     });
       //   })
       // }
-      return Promise.reject(res.data);
-    } else {
-      return response.data;
-    }
-  },
-  error => {
-    console.log('err' + error);// for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    });
-    return Promise.reject(error);
-  }
-)
+  //     return Promise.reject(res.data);
+  //   } else {
+  //     return response.data;
+  //   }
+  // },
+//   error => {
+//     console.log('err' + error);// for debug
+//     Message({
+//       message: error.message,
+//       type: 'error',
+//       duration: 5 * 1000
+//     });
+//     return Promise.reject(error);
+//   }
+// )
 
 export default service;
