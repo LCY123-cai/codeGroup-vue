@@ -13,7 +13,7 @@
             <Input v-model="formValidate.name" placeholder="请输入姓名"></Input>
         </FormItem>
         <FormItem label="性别" prop="sex">
-            <RadioGroup v-model="formValidate.sex" style="margin-left: -900px;">
+            <RadioGroup v-model="formValidate.sex" style="width: 100%; text-align: left;">
                 <Radio label="male">男</Radio>
                 <Radio label="female">女</Radio>
             </RadioGroup>
