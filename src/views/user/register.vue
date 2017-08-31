@@ -100,7 +100,8 @@ import { register } from '@/api/register';
                       const result = JSON.stringify(this.formValidate);
                       register(result).then((res) => {
                         if(res.data.code === 1) {
-                          this.$Message.success("注册成功！");
+                          this.$Message.success("注册成功！请选择普通用户进行登陆！");
+                          this.$router.push({name:'login'});
                         } else {
                           this.$Message.error(res.data.date);
                         }
@@ -119,10 +120,7 @@ import { register } from '@/api/register';
             },
             back(){
                 this.$router.back();
-            },
-            /*created() {
-              this.fetchData();
-            }*/
+            }
         }
     }
 </script>

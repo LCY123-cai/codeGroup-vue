@@ -23,6 +23,7 @@
 </template>
 <script>
   import { userLogin,adminLogin } from '@/api/login';
+  import {showUser} from "../../api/show";
 
   export default {
     data () {
@@ -49,23 +50,17 @@
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            if(this.loginForm.role === 'admin') {
-              adminLogin(this.loginForm.account, this.loginForm.password)
-                .then((res) => {
-                  if(res.data.code === 1) {
-                    this.$Message.success("登陆成功");
-                  } else {
-                    this.$Message.error(res.data.data);
-                  }
+            if (this.loginForm.role === 'admin') {
+              this.$store.dispatch('Login', this.loginForm)
+                .then(() => {
+                  this.$Message.success("登陆成功");
+                  this.$router.push({name:'showAdmin'});
                 })
             } else {
-              userLogin(this.loginForm.account, this.loginForm.password)
-                .then((res) => {
-                  if(res.data.code === 1) {
-                    this.$Message.success("登陆成功");
-                  } else {
-                    this.$Message.error(res.data.data);
-                  }
+              this.$store.dispatch('Login', this.loginForm)
+                .then(() => {
+                  this.$Message.success("登陆成功");
+                  this.$router.push({name:'showUser'});
                 })
             }
           }
@@ -76,7 +71,7 @@
       },
       back(){
         this.$router.back();
-      },
+      }
     }
   }
 </script>
