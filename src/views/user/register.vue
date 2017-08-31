@@ -14,7 +14,6 @@
         </FormItem>
         <FormItem label="性别" prop="sex">
             <RadioGroup v-model="formValidate.sex" style="width: 100%; text-align: left;">
-              {{ 测试 }}
                 <Radio label="male">男</Radio>
                 <Radio label="female">女</Radio>
             </RadioGroup>
