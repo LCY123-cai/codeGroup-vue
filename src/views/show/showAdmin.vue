@@ -1,5 +1,5 @@
 <template>
-  <Table height="200" :columns="columns" :data="adminForm"></Table>
+  <Table height="400" :columns="columns" :data="adminForm"></Table>
 </template>
 <script>
   import { showAdmin } from '@/api/show';
@@ -45,7 +45,6 @@
                 name: res.data[i].name
               });
             }
-//            this.adminForm = res.data;
             console.log(this.adminForm);
           })
       }
