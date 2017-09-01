@@ -39,7 +39,7 @@
     methods: {
       showUserList() {
         showUser(2)// 1 按积分排序 2 按注册时间排序
-          .then((res) => {
+          .then(res => {
             this.userForm = res.data;
             console.log(this.userForm);
           })

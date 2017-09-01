@@ -22,34 +22,22 @@
       </Col>
       <Col span="12">
       <span class="expand-key">注册日期：</span>
-      <span class="expand-value">{{ row.registerTime | timeFilter }}</span>
+      <span class="expand-value">{{ row.registerTime | formatDate }}</span>
       </Col>
     </Row>
   </div>
 </template>
 <script>
+  import {formatDate} from '@/utils/date';
   export default {
     props: {
       row: Object
     },
     filters: {
-      timeFilter(time) {
-        const isTensDigit = function(num) {
-          if (num < 10) {
-            return '0' + num;
-          } else {
-            return num;
-          }
+        formatDate(time) {
+          var date = new Date(time);
+          return formatDate(date, 'yyyy-MM-dd hh:mm');
         }
-        const date = new Date(time);
-        const year = date.getFullYear();
-        const month = isTensDigit(date.getMonth() + 1);
-        const day = isTensDigit(date.getDate());
-        const hours = isTensDigit(date.getHours());
-        const minutes = isTensDigit(date.getMinutes());
-        const seconds = isTensDigit(date.getSeconds());
-        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-      }
     },
   };
 </script>

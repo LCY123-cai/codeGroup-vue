@@ -98,7 +98,7 @@ import { register } from '@/api/register';
               this.$refs[name].validate((valid) => {
                     if (valid) {
                       const result = JSON.stringify(this.formValidate);
-                      register(result).then((res) => {
+                      register(result).then(res => {
                         if(res.data.code === 1) {
                           this.$Message.success("注册成功！请选择普通用户进行登陆！");
                           this.$router.push({name:'login'});
