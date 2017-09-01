@@ -1,8 +1,3 @@
-<style scoped>
-  .expand-row{
-    margin-bottom: 16px;
-  }
-</style>
 <template>
   <div>
     <Row class="expand-row">
@@ -15,7 +10,7 @@
       <span class="expand-value">{{ row.year }}</span>
       </Col>
     </Row>
-    <Row>
+    <Row class="expand-row">
       <Col span="12">
       <span class="expand-key">性别：</span>
       <span class="expand-value">{{ row.sex }}</span>
@@ -23,6 +18,16 @@
       <Col span="12">
       <span class="expand-key">注册日期：</span>
       <span class="expand-value">{{ row.registerTime | formatDate }}</span>
+      </Col>
+    </Row>
+    <Row class="expand-row">
+      <Col span="12">
+      <span class="expand-key">电话：</span>
+      <span class="expand-value">{{ row.phone }}</span>
+      </Col>
+      <Col span="12">
+      <span class="expand-key">qq号：</span>
+      <span class="expand-value">{{ row.qq }}</span>
       </Col>
     </Row>
   </div>
@@ -41,3 +46,8 @@
     },
   };
 </script>
+<style scoped>
+  .expand-row{
+    margin-bottom: 16px;
+  }
+</style>

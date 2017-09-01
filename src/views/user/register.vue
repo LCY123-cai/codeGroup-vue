@@ -99,13 +99,10 @@ import { register } from '@/api/register';
                     if (valid) {
                       const result = JSON.stringify(this.formValidate);
                       register(result).then(res => {
-                        if(res.data.code === 1) {
                           this.$Message.success("注册成功！请选择普通用户进行登陆！");
                           this.$router.push({name:'login'});
-                        } else {
-                          this.$Message.error(res.data.date);
-                        }
                     }).catch((e)=>{
+                        console.log(error);
                         this.$Message.error({
                           content: "注册失败",
                           duration: 1.5,
