@@ -2,6 +2,7 @@
   <div class="hello">
     <img :src="logo">
     <h1>{{ msg }}</h1>
+    <!-- 加一点注释 -->
     <h2>Developer：Stalary，Sumey</h2>
     <Button type="info" @click="login">登陆</Button>
     <Button type="info" @click="register">注册</Button>
