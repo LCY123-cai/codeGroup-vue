@@ -1,5 +1,6 @@
 <template>
     <div>
+    <!-- 这是一个展示管理员的页面 -->
     </div>
 </template>
 
