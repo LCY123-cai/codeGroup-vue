@@ -31,9 +31,12 @@ export function showOneAdmin() {
   });
 }
 
-export function showRank() {
+export function showRank(keyId) {
   return fetch({
     url: '/show/showRank',
-    method: 'post'
+    method: 'post',
+    data: {
+      keyId
+    }
   });
 }

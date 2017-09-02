@@ -16,7 +16,7 @@
             render: (h, params) => {
               return h(rank, {
                 props: {
-                  row: params.row
+                  keyId: params.row.keyId
                 }
               })
             }

@@ -6,7 +6,7 @@
   import { showRank } from '@/api/show'
   export default {
     props: {
-      row: Object
+      keyId: ''
     },
     data () {
       return {
@@ -29,7 +29,6 @@
     },
     methods: {
       showRankList() {
-        console.log(row);
         showRank(this.keyId).then(res => {
           for(var i = 0; i < res.data.length; i++) {
             this.rankForm.push({
@@ -38,6 +37,7 @@
               alterDetail: res.data[i].alterDetail,
             });
           }
+
         })
       }
     },

@@ -45,8 +45,8 @@
           })
       }
     },
-      created() {
+    created() {
         this.showUserList();
-      }
+    }
   }
 </script>
