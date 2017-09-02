@@ -9,6 +9,7 @@ const showUser = resolve => require(['../views/show/showUser.vue'], resolve);
 const showAdmin = resolve => require(['../views/show/showAdmin.vue'], resolve);
 const showOneAdmin = resolve => require(['../views/show/showOneAdmin.vue'], resolve);
 const showOneUser = resolve => require(['../views/show/showOneAdmin.vue'], resolve);
+const showRank = resolve => require(['../views/show/showRank.vue'], resolve);
 Vue.use(iView);
 Vue.use(Router);
 
@@ -26,8 +27,9 @@ export default new Router({
       children: [
         {path: '/showUser', component: showUser, name: 'showUser'},
         {path: '/showAdmin', component: showAdmin, name: 'showAdmin'},
-        {path: '/showOneAdmin', component: showAdmin,name:'showOneAdmin'},
-        {path: '/showOneAdmin', component: showAdmin,name:'showOneAdmin'},
+        {path: '/showOneAdmin', component: showOneAdmin,name:'showOneAdmin'},
+        {path: '/showOneUser', component: showOneUser,name:'showOneUser'},
+        {path: '/showRank', component: showRank,name:'showRank'},
       ]
     },
     {path: '/login', component: login, name: 'login'},

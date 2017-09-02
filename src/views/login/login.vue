@@ -54,13 +54,13 @@
               this.$store.dispatch('Login', this.loginForm)
                 .then(() => {
                   this.$Message.success("登陆成功");
-                  this.$router.push({name:'showAdmin'});
+                  this.$router.push({name:'showOneAdmin'});
                 })
             } else {
               this.$store.dispatch('Login', this.loginForm)
                 .then(() => {
                   this.$Message.success("登陆成功");
-                  this.$router.push({name:'showUser'});
+                  this.$router.push({name:'showOneUser'});
                 })
             }
           }

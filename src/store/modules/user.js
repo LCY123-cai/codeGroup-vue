@@ -1,14 +1,18 @@
 import { adminLogin, userLogin } from '@/api/login';
-import { getToken, setToken, removeToken } from '@/utils/auth';
+import { getToken, setToken, removeToken, getRole, setRole, removeRole } from '@/utils/auth';
 
 const user = {
   state: {
-    token: getToken()
+    token: getToken(),
+    roles: getRole()
   },
 
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token;
+    },
+    SET_ROLE: (state, roles) => {
+      state.roles = roles;
     },
   },
 
@@ -20,7 +24,9 @@ const user = {
         adminLogin(loginForm.account, loginForm.password).then(response => {
           const data = response.data;
           setToken(data.token);
+          setRole(loginForm.role);
           commit('SET_TOKEN', data.token);
+          commit('SET_ROLE', loginForm.role);
           resolve();
         }).catch(error => {
           reject(error);
@@ -29,7 +35,9 @@ const user = {
           userLogin(loginForm.account, loginForm.password).then(response => {
             const data = response.data;
             setToken(data.token);
+            setRole(loginForm.role);
             commit('SET_TOKEN', data.token);
+            commit('SET_ROLE', loginForm.role);
             resolve();
           }).catch(error => {
             reject(error);

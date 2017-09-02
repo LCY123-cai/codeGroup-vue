@@ -30,3 +30,10 @@ export function showOneAdmin() {
     method: 'post'
   });
 }
+
+export function showRank() {
+  return fetch({
+    url: '/show/showRank',
+    method: 'post'
+  });
+}

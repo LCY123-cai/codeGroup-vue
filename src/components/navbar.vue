@@ -1,28 +1,140 @@
-<!--借方和贷方显示的导航菜单栏 -->
+<template>
+  <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+    <Row type="flex">
+      <Col :span="spanLeft" class="layout-menu-left">
+       <Menu active-name="1" theme="dark" width="auto">
+        <div class="layout-logo-left"></div>
+        <div v-show="role === 'admin'">
+          <router-link :to="{name:'showOneAdmin'}">
+          <MenuItem name="1">
+            <Icon type="home" :size="iconSize"></Icon>
+            <span class="layout-text">个人中心&nbsp;&nbsp;&nbsp;</span>
+          </MenuItem>
+          </router-link>
+          <router-link :to="{name:'showAdmin'}">
+          <MenuItem name="2">
+            <Icon type="person-stalker" :size="iconSize"></Icon>
+            <span class="layout-text">管理员列表</span>
+          </MenuItem>
+          </router-link>
+          <router-link :to="{name:'showUser'}">
+          <MenuItem name="3">
+            <Icon type="person-stalker" :size="iconSize"></Icon>
+            <span class="layout-text">用户列表&nbsp;&nbsp;&nbsp;</span>
+          </MenuItem>
+          </router-link>
+          <router-link :to="{name:'showRank'}">
+          <MenuItem name="4">&nbsp;&nbsp;
+            <Icon type="person-stalker" :size="iconSize"></Icon>
+            <span class="layout-text">用户积分列表</span>
+          </MenuItem>
+          </router-link>
+          <router-link :to="{name:''}">
+          <MenuItem name="5">
+            <Icon type="edit" :size="iconSize"></Icon>
+            <span class="layout-text">编辑管理员</span>
+          </MenuItem>
+          </router-link>
+          <router-link :to="{name:''}">
+          <MenuItem name="6">
+            <Icon type="edit" :size="iconSize"></Icon>
+            <span class="layout-text">编辑用户&nbsp;&nbsp;</span>
+          </MenuItem>
+          </router-link>
+        </div>
+       </Menu>
+      </Col>
+  <Col :span="spanRight">
+  <div class="layout-header">
+    <Button type="text" @click="toggleClick">
+      <Icon type="navicon" size="32"></Icon>
+    </Button>
+    <span>导航</span>
+    <a>
+      <span style="float: right; padding: 1rem" @click="loginOut">退出登录</span>
+    </a>
+  </div>
+  <div class="layout-content" :style="{minWidth:pageWidth}">
+    <div class="layout-content-main">
+      <Row type="flex" justify="center">
+        <Col :xs="24" :sm="24" :md="24" :lg="18">
+        <router-view></router-view>
+        </Col>
+      </Row>
+    </div>
+  </div>
+  <div class="layout-copy">
+    Design By Stalary
+  </div>
+  </Col>
+  </Row>
+  </div>
+</template>
+<script>
+  import {removeToken, removeRole, getToken, getRole} from '@/utils/auth'
+
+  export default {
+    data() {
+      return {
+        showArray: true,
+        showNav: false,
+        readed: false,
+        spanLeft: 5,
+        spanRight: 19,
+        pageHeight: `${document.body.scrollHeight}px`,
+        role: '',
+        pageWidth: `${document.body.offsetWidth - 20}px`,
+      }
+    },
+    mounted() {
+      this.role = getRole();
+    },
+    computed: {
+      iconSize() {
+        return this.spanLeft === 5 ? 14 : 24;
+      }
+    },
+    methods: {
+      toggleClick() {
+        if (this.spanLeft === 5) {
+          this.spanLeft = 2;
+          this.spanRight = 22;
+        } else {
+          this.spanLeft = 5;
+          this.spanRight = 19;
+        }
+      },
+      loginOut() {
+        removeToken();
+        removeRole();
+        this.$router.push({name: 'login'});
+      },
+    }
+  }
+</script>
 <style scoped>
   .layout {
     border: 1px solid #d7dde4;
-    border-bottom: none;
-    /*background: #f5f7f9;*/
+    background: #f5f7f9;
     position: relative;
     border-radius: 4px;
     overflow: hidden;
   }
 
-  .layout-content-main .layout-breadcrumb {
+  .layout-breadcrumb {
     padding: 10px 15px 0;
   }
 
   .layout-content {
-    /*min-width: 300px;*/
-    min-height: 200px;
-    margin: 10px;
-    /*background: #fff;*/
+    min-height: 470px;
+    margin: 15px;
+    overflow: hidden;
+    background: #fff;
     border-radius: 4px;
   }
 
   .layout-content-main {
-    /*padding: 10px;*/
+    padding: 10px;
   }
 
   .layout-copy {
@@ -36,7 +148,7 @@
   }
 
   .layout-header {
-    /*height: 60px;*/
+    height: 60px;
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   }
@@ -47,7 +159,6 @@
     background: #5b6270;
     border-radius: 3px;
     margin: 15px auto;
-    text-align: center;
   }
 
   .layout-ceiling-main a {
@@ -55,189 +166,15 @@
   }
 
   .layout-hide-text .layout-text {
-    opacity: 0;
+    display: none;
+  }
+
+  .ivu-col {
+    transition: width .2s ease-in-out;
   }
 
   a {
     text-decoration: none;
     color: #000;
   }
-
-  .nav-button {
-    position: fixed;
-    top: 50%;
-  }
-
 </style>
-<template>
-  <div class="layout" :class="{'layout-hide-text': spanLeft < 8}">
-    <Row type="flex">
-      <Col :span="spanLeft" class="layout-menu-left" :style="{ height: pageHeight }">
-      <Menu theme="dark" width="auto" :open-names="['1','2']">
-        <div class="layout-logo-left">
-        </div>
-        <!--借款企业-->
-        <div v-show="userType == 3">
-          <!-- <Submenu name="1"> -->
-          <!-- <template slot="title">
-                    我要借款
-                  </template> -->
-          <Menu-group title="我要借款">
-            <router-link to="/BorrowUser/ApplyTip">
-              <Menu-item name="1-1">1&nbsp;填写材料</Menu-item>
-            </router-link>
-            <router-link :to="{name:'Reservation'}">
-              <Menu-item name="1-2">2&nbsp;办理核实</Menu-item>
-            </router-link>
-            <router-link :to="{name:'ConfirmBill'}">
-              <Menu-item name="1-3">3&nbsp;确认对账</Menu-item>
-            </router-link>
-            <router-link :to="{name:'ViewPrice'}">
-              <Menu-item name="1-4">4&nbsp;报价管理</Menu-item>
-            </router-link>
-            <router-link :to="{name:'BorrowHandleLoans'}">
-              <Menu-item name="1-5">5&nbsp;办理放贷</Menu-item>
-            </router-link>
-            <!-- </Submenu> -->
-          </Menu-group>
-          <!-- <Submenu name="2">
-                  <template slot="title">
-                    我的账户
-                  </template> -->
-          <!-- BorrowLoanManagement -->
-          <Menu-group title="我的账户">
-            <router-link :to="{name:'BorrowLoanManagementList'}">
-              <Menu-item name="2-1">6&nbsp;贷后管理</Menu-item>
-            </router-link>
-            <router-link :to="{name:'BorrowPayInfo'}">
-              <Menu-item name="2-2">7&nbsp;付费记录</Menu-item>
-            </router-link>
-            <router-link :to="{name:'BorrowNotification'}">
-              <Menu-item name="2-3">8&nbsp;系统通知
-                <span style="color:red;" v-if="readed"> ●</span>
-              </Menu-item>
-            </router-link>
-          </Menu-group>
-          <!-- </Submenu> -->
-        </div>
-      </Menu>
-      </Col>
-      <i-col :span="spanRight">
-        <div class="layout-header">
-          <i-button type="text" @click="toggleClick">
-            <Icon type="navicon" size="32"></Icon>
-          </i-button>
-          <i-button type="text" @click="toggleClick" class="nav-button" v-if="showArray">
-            <Icon type="chevron-left" size="32" v-show="showNav"></Icon>
-            <Icon type="chevron-right" size="32" v-show="!showNav"></Icon>
-          </i-button>
-          <span>{{navInfo}}</span>
-          <a>
-            <span style="float: right; padding: 1rem" @click="loginOut">退出登录</span>
-          </a>
-        </div>
-        <div style="text-align: left;margin-top: .5rem">
-
-          <!-- <Button type="ghost" @click="routerBack">
-                <Icon type="chevron-left"></Icon>
-              </Button>
-     -->
-          <!-- <Button-group>
-                  <Button type="ghost" @click="routerGo">
-                    <Icon type="chevron-left"></Icon>
-                    前进
-                  </Button>
-                <Button type="ghost" @click="routerBack">
-                  后退
-                  <Icon type="chevron-right"></Icon>
-                </Button>
-              </Button-group> -->
-        </div>
-        <div class="layout-content" :style="{minWidth:pageWidth}">
-          <div class="layout-content-main">
-            <Row type="flex" justify="center">
-              <Col :xs="24" :sm="24" :md="24" :lg="18">
-              <router-view></router-view>
-              </Col>
-            </Row>
-          </div>
-        </div>
-        <div class="layout-copy">
-        </div>
-
-      </i-col>
-    </Row>
-    <Back-top></Back-top>
-  </div>
-</template>
-<script>
-//  import Utils from '../utils'
-//  import API from '../api'
-  export default {
-    data() {
-      return {
-        showArray: true,
-        showNav: false,
-        readed: false,
-        spanLeft: ``,
-        spanRight: '24',
-        pageHeight: `${document.body.scrollHeight}px`,
-        userType: '',
-        pageWidth: `${document.body.offsetWidth - 20}px`,
-        navInfo: '导航'
-      }
-    },
-    mounted() {
-      this.spanLeft = '0';
-      this.spanRight = 24;
-    },
-    methods: {
-      toggleClick() {
-        this.showNav = !this.showNav;
-        let screenWidth = window.screen.width;
-        if (this.spanLeft == 0) {
-          if (screenWidth > 992) {
-            this.spanLeft = 5;
-            this.spanRight = 19;
-          } else {
-            this.spanLeft = 8;
-            this.spanRight = 16;
-          }
-        } else {
-          this.spanLeft = '0';
-          this.spanRight = 24;
-        }
-      },
-      loginOut() {
-        localStorage.setItem('token', '');
-        localStorage.setItem('userType', '-1');
-        this.$router.push({ name: 'Login' });
-      },
-      getPhoneNum() {
-        Utils.post(API.getPhoneNum).then((res) => {
-          console.log(res);
-          if (res.code == 1) {
-            this.navInfo = res.data;
-          }
-        })
-      },
-      existUnread() {
-        let self = this;
-        Utils.post(API.notification.existUnread)
-          .then((res) => {
-            if (res.code == 1) {
-              self.readed = res.data;
-            }
-          })
-      },
-      routerGo() {
-        this.$router.go(1);
-      },
-      routerBack() {
-        this.$router.back();
-
-      }
-    }
-  }
-</script>
-

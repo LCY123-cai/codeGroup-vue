@@ -1,5 +1,5 @@
 <template>
-  <Table height="400" :columns="columns" :data="adminForm"></Table>
+  <Table height="280" :columns="columns" :data="adminForm"></Table>
 </template>
 <script>
   import { showAdmin } from '@/api/show';
@@ -29,17 +29,6 @@
           }
         ],
         adminForm: []
-      }
-    },
-    filters: {
-      positionFilter(value) {//职位 1 会长 2 副会长 3 部门部长
-        if (value === 1) {
-          return '会长'
-        } else if (value === 2) {
-          return '副会长'
-        } else if (value === 3) {
-          return '部门部长'
-        }
       }
     },
     methods: {

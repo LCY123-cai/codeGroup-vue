@@ -2,10 +2,10 @@
   <Table :columns="columns" :data="userForm"></Table>
 </template>
 <script>
-  import expandRow from '@/components/showUserInfo';
+  import rank from '@/components/showOneRank';
   import { showUser } from '@/api/show';
   export default {
-    components: { expandRow },
+    components: { rank },
     data () {
       return {
         userForm: [],
@@ -14,7 +14,7 @@
             type: 'expand',
             width: 50,
             render: (h, params) => {
-              return h(expandRow, {
+              return h(rank, {
                 props: {
                   row: params.row
                 }
@@ -45,8 +45,8 @@
           })
       }
     },
-      created() {
-        this.showUserList();
-      }
+    created() {
+      this.showUserList();
+    }
   }
 </script>
