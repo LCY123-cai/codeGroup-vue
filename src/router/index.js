@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import iView from 'iview';
+const navbar = resolve => require(['../components/navbar.vue'], resolve);
 const login = resolve => require(['../views/login/login.vue'], resolve);
 const index = resolve => require(['../views/index/index.vue'], resolve);
 const register = resolve => require(['../views/user/register.vue'], resolve);
@@ -14,11 +15,18 @@ export default new Router({
     {
       path: '/',
       name: '首页',
-      component: index
+      component: index,
     },
-    {path: '/login', component: login,name:'login'},
-    {path: '/register', component: register,name:'register'},
-    {path: '/showUser', component: showUser,name:'showUser'},
-    {path: '/showAdmin', component: showAdmin,name:'showAdmin'}
+    {
+      path: '/show',
+      name: '',
+      component: navbar,
+      children: [
+        {path: '/showUser', component: showUser, name: 'showUser'},
+        {path: '/showAdmin', component: showAdmin, name: 'showAdmin'}
+      ]
+    },
+    {path: '/login', component: login, name: 'login'},
+    {path: '/register', component: register, name: 'register'}
   ]
 })

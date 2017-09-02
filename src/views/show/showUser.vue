@@ -38,7 +38,7 @@
     },
     methods: {
       showUserList() {
-        showUser(2)// 1 按积分排序 2 按注册时间排序
+        showUser(1)// 1 按积分排序 2 按注册时间排序
           .then(res => {
             this.userForm = res.data;
             console.log(this.userForm);
