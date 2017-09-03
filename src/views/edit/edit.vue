@@ -34,6 +34,9 @@
         <FormItem label="邮箱" prop="mail">
           <Input v-model="userValidate.mail" placeholder="请输入邮箱"></Input>
         </FormItem>
+        <FormItem label="QQ" prop="qq">
+          <Input v-model="userValidate.qq" placeholder="请输入QQ号"></Input>
+        </FormItem>
         <FormItem label="所在地" prop="region">
           <Input v-model="userValidate.region" placeholder="请输入家乡所在地"></Input>
         </FormItem>
@@ -158,6 +161,7 @@
           major: '',
           mail: '',
           region:'',
+          qq: ''
         },
         adminValidate: {
           phone: '',

@@ -17,7 +17,7 @@
     <FormItem>
       <Button type="primary" @click="handleSubmit('loginForm')">登陆</Button>
       <Button type="ghost" @click="handleReset('loginForm')" style="margin-left: 8px">重置</Button>
-      <Button type="primary" @click="back()">返回</Button>
+      <Button type="primary" @click="back">返回</Button>
     </FormItem>
   </Form>
 </template>
@@ -70,7 +70,7 @@
         this.$refs[name].resetFields();
       },
       back(){
-        this.$router.back();
+        this.$router.push({name:'index'});
       }
     }
   }
