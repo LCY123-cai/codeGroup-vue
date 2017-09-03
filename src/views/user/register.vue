@@ -1,5 +1,5 @@
 <template>
-    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="60">
       <FormItem label="手机号" prop="phone">
         <Input v-model="formValidate.phone" placeholder="请输入手机号"></Input>
       </FormItem>

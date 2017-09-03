@@ -8,8 +8,9 @@ const register = resolve => require(['../views/user/register.vue'], resolve);
 const showUser = resolve => require(['../views/show/showUser.vue'], resolve);
 const showAdmin = resolve => require(['../views/show/showAdmin.vue'], resolve);
 const showOneAdmin = resolve => require(['../views/show/showOneAdmin.vue'], resolve);
-const showOneUser = resolve => require(['../views/show/showOneAdmin.vue'], resolve);
+const showOneUser = resolve => require(['../views/show/showOneUser.vue'], resolve);
 const showRank = resolve => require(['../views/show/showRank.vue'], resolve);
+const edit = resolve => require(['../views/edit/edit.vue'], resolve);
 Vue.use(iView);
 Vue.use(Router);
 
@@ -30,6 +31,7 @@ export default new Router({
         {path: '/showOneAdmin', component: showOneAdmin,name:'showOneAdmin'},
         {path: '/showOneUser', component: showOneUser,name:'showOneUser'},
         {path: '/showRank', component: showRank,name:'showRank'},
+        {path: '/edit', component: edit,name:'edit'},
       ]
     },
     {path: '/login', component: login, name: 'login'},

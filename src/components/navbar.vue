@@ -4,42 +4,57 @@
       <Col :span="spanLeft" class="layout-menu-left">
        <Menu active-name="1" theme="dark" width="auto">
         <div class="layout-logo-left"></div>
-        <div v-show="role === 'admin'">
-          <router-link :to="{name:'showOneAdmin'}">
+        <div v-show="role === 'user'">
+          <router-link :to="{name:'showOneUser'}">
           <MenuItem name="1">
             <Icon type="home" :size="iconSize"></Icon>
             <span class="layout-text">个人中心&nbsp;&nbsp;&nbsp;</span>
           </MenuItem>
           </router-link>
-          <router-link :to="{name:'showAdmin'}">
-          <MenuItem name="2">
-            <Icon type="person-stalker" :size="iconSize"></Icon>
-            <span class="layout-text">管理员列表</span>
-          </MenuItem>
-          </router-link>
           <router-link :to="{name:'showUser'}">
-          <MenuItem name="3">
+          <MenuItem name="2">
             <Icon type="person-stalker" :size="iconSize"></Icon>
             <span class="layout-text">用户列表&nbsp;&nbsp;&nbsp;</span>
           </MenuItem>
           </router-link>
+          <router-link :to="{name:'showAdmin'}">
+            <MenuItem name="3">
+              <Icon type="person-stalker" :size="iconSize"></Icon>
+              <span class="layout-text">管理员列表</span>
+            </MenuItem>
+          </router-link>
+        </div>
+        <div v-show="role === 'admin'">
+          <router-link :to="{name:'showOneAdmin'}">
+            <MenuItem name="1">
+              <Icon type="home" :size="iconSize"></Icon>
+              <span class="layout-text">个人中心&nbsp;&nbsp;&nbsp;</span>
+            </MenuItem>
+          </router-link>
+          <router-link :to="{name:'showAdmin'}">
+            <MenuItem name="2">
+              <Icon type="person-stalker" :size="iconSize"></Icon>
+              <span class="layout-text">管理员列表</span>
+            </MenuItem>
+          </router-link>
+          <router-link :to="{name:'showUser'}">
+            <MenuItem name="3">
+              <Icon type="person-stalker" :size="iconSize"></Icon>
+              <span class="layout-text">用户列表&nbsp;&nbsp;&nbsp;</span>
+            </MenuItem>
+          </router-link>
           <router-link :to="{name:'showRank'}">
-          <MenuItem name="4">&nbsp;&nbsp;
-            <Icon type="person-stalker" :size="iconSize"></Icon>
-            <span class="layout-text">用户积分列表</span>
-          </MenuItem>
+            <MenuItem name="4">&nbsp;&nbsp;
+              <Icon type="person-stalker" :size="iconSize"></Icon>
+              <span class="layout-text">用户积分列表</span>
+            </MenuItem>
           </router-link>
-          <router-link :to="{name:''}">
-          <MenuItem name="5">
-            <Icon type="edit" :size="iconSize"></Icon>
-            <span class="layout-text">编辑管理员</span>
-          </MenuItem>
-          </router-link>
-          <router-link :to="{name:''}">
-          <MenuItem name="6">
-            <Icon type="edit" :size="iconSize"></Icon>
-            <span class="layout-text">编辑用户&nbsp;&nbsp;</span>
-          </MenuItem>
+          <router-link :to="{name:'edit'}">
+            <MenuItem name="5">
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <Icon type="edit" :size="iconSize"></Icon>
+              <span class="layout-text">编辑用户管理员</span>
+            </MenuItem>
           </router-link>
         </div>
        </Menu>
