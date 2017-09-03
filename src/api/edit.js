@@ -29,3 +29,16 @@ export function addAdmin(result) {
     }
   });
 }
+
+export function alterRank(studentNo, alterNumber, alterDetail, type) {
+  return fetch({
+    url: '/alter/alterRank',
+    method: 'post',
+    data: {
+      studentNo,
+      alterNumber,
+      alterDetail,
+      type
+    }
+  });
+}

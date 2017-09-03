@@ -42,6 +42,32 @@
         </FormItem>
       </Form>
     </Modal>
+    <Button type="success" @click="rankModal = true">修改用户积分</Button>
+    <Modal
+      v-model="rankModal"
+      title="修改用户积分"
+      @on-ok="editRank('rankValidate')"
+      @on-cancel="cancel">
+      <Form ref="rankValidate" :model="rankValidate" :rules="rankRule" :label-width="80">
+        <FormItem label="学号" prop="studentNo">
+          <Input v-model="rankValidate.studentNo" placeholder="请输入学号"></Input>
+        </FormItem>
+        <FormItem label="修改数量" prop="alterNumber">
+          <Input v-model="rankValidate.alterNumber" placeholder="请输入姓名"></Input>
+        </FormItem>
+        <FormItem label="修改详情" prop="alterDetail">
+          <Input v-model="rankValidate.alterDetail" placeholder="请输入修改详情-选填"></Input>
+        </FormItem>
+        <FormItem label="类型" prop="type">
+          <Select v-model="rankValidate.type" style="width:200px">
+            <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+        </FormItem>
+        <FormItem>
+          <Button type="ghost" @click="handleReset('rankValidate')" style="margin-left: 8px">重置</Button>
+        </FormItem>
+      </Form>
+    </Modal>
     <Button type="error" @click="deleteUserModal = true">删除用户</Button>
     <Modal
       v-model="deleteUserModal"
@@ -98,7 +124,7 @@
 </template>
 <script>
   import { validatePhoneNumber } from '@/utils/validate';
-  import { deleteUser, deleteAdmin, addAdmin } from '@/api/edit'
+  import { deleteUser, deleteAdmin, addAdmin, alterRank } from '@/api/edit'
   import { register } from '@/api/register';
   import { message } from 'iview'
   export default {
@@ -117,6 +143,7 @@
         addAdminModal: false,
         deleteAdminModal: false,
         deleteUserModal: false,
+        rankModal: false,
         adminStudentNo: '',
         userStudentNo: '',
         value1: '',
@@ -138,6 +165,23 @@
           studentNo: '',
           name: '',
           year: '',
+        },
+        rankValidate: {
+          studentNo: '',
+          alterNumber: 0,
+          alterDetail: '',
+          type: '',
+        },
+        rankRule: {
+          studentNo: [
+            { required: true, message: '学号不能为空', trigger: 'blur' }
+          ],
+          alterNumber: [
+            { required: true, message: '数量不能为空', trigger: 'blur' }
+          ],
+          type: [
+            { required: true, message: '类型不能为空', trigger: 'blur' }
+          ],
         },
         userRule: {
           phone: [
@@ -225,6 +269,24 @@
             value: '2020',
             label: '2020级'
           }
+        ],
+        typeList: [
+          {
+            value: '1',
+            label: '签到'
+          },
+          {
+            value: '2',
+            label: '参加活动'
+          },
+          {
+            value: '3',
+            label: '比赛'
+          },
+          {
+            value: '4',
+            label: '违规'
+          }
         ]
       }
     },
@@ -278,6 +340,28 @@
           }
         })
       },
+      editRank (name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            alterRank(this.rankValidate.studentNo,this.rankValidate.alterNumber,this.rankValidate.alterDetail,this.rankValidate.type).then(res => {
+              this.$Message.success("修改成功");
+            }).catch((e)=>{
+              console.log(error);
+              this.$Message.error({
+                content: "修改失败",
+                duration: 1.5,
+                closable: true
+              })
+            });
+          }
+        })
+      },
+      ok () {
+        this.$Message.info('点击了确定');
+      },
+      cancel () {
+        this.$Message.info('点击了取消');
+      }
     }
   }
 </script>
