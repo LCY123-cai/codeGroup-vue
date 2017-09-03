@@ -23,7 +23,7 @@
 </template>
 <script>
   import { userLogin,adminLogin } from '@/api/login';
-  import {showUser} from "../../api/show";
+  import { showUser } from "../../api/show";
 
   export default {
     data () {

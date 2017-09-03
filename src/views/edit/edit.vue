@@ -5,40 +5,40 @@
     <Modal
       v-model="addUserModal"
       title="添加用户"
-      @on-ok="addUser('formValidate')">
-      <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+      @on-ok="addUser('userValidate')">
+      <Form ref="userValidate" :model="userValidate" :rules="userRule" :label-width="80">
         <FormItem label="手机号" prop="phone">
-          <Input v-model="formValidate.phone" placeholder="请输入手机号"></Input>
+          <Input v-model="userValidate.phone" placeholder="请输入手机号"></Input>
         </FormItem>
         <FormItem label="密码" prop="password">
-          <Input v-model="formValidate.password" placeholder="请输入密码" type="password"></Input>
+          <Input v-model="userValidate.password" placeholder="请输入密码" type="password"></Input>
         </FormItem>
         <FormItem label="学号" prop="studentNo">
-          <Input v-model="formValidate.studentNo" placeholder="请输入学号"></Input>
+          <Input v-model="userValidate.studentNo" placeholder="请输入学号"></Input>
         </FormItem>
         <FormItem label="姓名" prop="name">
-          <Input v-model="formValidate.name" placeholder="请输入姓名"></Input>
+          <Input v-model="userValidate.name" placeholder="请输入姓名"></Input>
         </FormItem>
         <FormItem label="性别" prop="sex">
-          <RadioGroup v-model="formValidate.sex" style="width: 100%; text-align: left;">
+          <RadioGroup v-model="userValidate.sex" style="width: 100%; text-align: left;">
             <Radio label="male">男</Radio>
             <Radio label="female">女</Radio>
           </RadioGroup>
         </FormItem>
         <FormItem label="年级" prop="year">
-          <Input v-model="formValidate.year" placeholder="请输入年级" ></Input>
+          <Input v-model="userValidate.year" placeholder="请输入年级" ></Input>
         </FormItem>
         <FormItem label="专业" prop="major">
-          <Input v-model="formValidate.major" placeholder="请输入专业"></Input>
+          <Input v-model="userValidate.major" placeholder="请输入专业"></Input>
         </FormItem>
         <FormItem label="邮箱" prop="mail">
-          <Input v-model="formValidate.mail" placeholder="请输入邮箱"></Input>
+          <Input v-model="userValidate.mail" placeholder="请输入邮箱"></Input>
         </FormItem>
         <FormItem label="所在地" prop="region">
-          <Input v-model="formValidate.region" placeholder="请输入家乡所在地"></Input>
+          <Input v-model="userValidate.region" placeholder="请输入家乡所在地"></Input>
         </FormItem>
         <FormItem>
-          <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
+          <Button type="ghost" @click="handleReset('userValidate')" style="margin-left: 8px">重置</Button>
         </FormItem>
       </Form>
     </Modal>
@@ -55,8 +55,35 @@
     <Button type="primary" @click="addAdminModal = true">添加管理员</Button>
     <Modal
       v-model="addAdminModal"
-      title="添加管理员">
-      <Input v-model="value2" placeholder="请输入..." style="width: 300px"></Input>
+      title="添加管理员"
+      @on-ok="addAdmin('adminValidate')">
+      <Form ref="adminValidate" :model="adminValidate" :rules="adminRule" :label-width="80">
+        <FormItem label="手机号" prop="phone">
+          <Input v-model="adminValidate.phone" placeholder="请输入手机号"></Input>
+        </FormItem>
+        <FormItem label="密码" prop="password">
+          <Input v-model="adminValidate.password" placeholder="请输入密码" type="password"></Input>
+        </FormItem>
+        <FormItem label="学号" prop="studentNo">
+          <Input v-model="adminValidate.studentNo" placeholder="请输入学号"></Input>
+        </FormItem>
+        <FormItem label="姓名" prop="name">
+          <Input v-model="adminValidate.name" placeholder="请输入姓名"></Input>
+        </FormItem>
+        <FormItem label="年级" prop="year">
+          <Select v-model="adminValidate.year" style="width:200px">
+            <Option v-for="item in yearList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="职务" prop="position">
+          <Select v-model="adminValidate.position" style="width:200px">
+            <Option v-for="item in positionList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          </Select>
+        </FormItem>
+        <FormItem>
+          <Button type="ghost" @click="handleReset('adminValidate')" style="margin-left: 8px">重置</Button>
+        </FormItem>
+      </Form>
     </Modal>
     <Button type="error" @click="deleteAdminModal = true">删除管理员</Button>
     <Modal
@@ -71,8 +98,9 @@
 </template>
 <script>
   import { validatePhoneNumber } from '@/utils/validate';
-  import { deleteUser, deleteAdmin } from '@/api/edit'
+  import { deleteUser, deleteAdmin, addAdmin } from '@/api/edit'
   import { register } from '@/api/register';
+  import { message } from 'iview'
   export default {
     data () {
       const validatePhone = (rule, value, callback) => {
@@ -93,7 +121,7 @@
         userStudentNo: '',
         value1: '',
         value2: '',
-        formValidate: {
+        userValidate: {
           phone: '',
           password: '',
           studentNo: '',
@@ -104,7 +132,14 @@
           mail: '',
           region:'',
         },
-        ruleValidate: {
+        adminValidate: {
+          phone: '',
+          password: '',
+          studentNo: '',
+          name: '',
+          year: '',
+        },
+        userRule: {
           phone: [
             { required: true, trigger: 'blur', validator: validatePhone}
           ],
@@ -130,7 +165,67 @@
             { required: true, message: '邮箱不能为空', trigger: 'blur' },
             { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
           ],
-        }
+        },
+        adminRule: {
+          phone: [
+            { required: true, trigger: 'blur', validator: validatePhone}
+          ],
+          password: [
+            { required: true, message: '密码不能为空', trigger: 'blur' }
+          ],
+          studentNo: [
+            { required: true, message: '学号不能为空', trigger: 'blur' }
+          ],
+          name: [
+            { required: true, message: '姓名不能为空', trigger: 'blur' }
+          ],
+          year: [
+            { required: true, message: '年级不能为空', trigger: 'change' }
+          ],
+          position: [
+            { required: true, message: '职位不能为空', trigger: 'change' }
+          ],
+        },
+        positionList: [
+          {
+            value: '1',
+            label: '会长'
+          },
+          {
+            value: '2',
+            label: '副会长'
+          },
+          {
+            value: '3',
+            label: '部长'
+          },
+        ],
+        yearList: [
+          {
+            value: '2015',
+            label: '2015级'
+          },
+          {
+            value: '2016',
+            label: '2016级'
+          },
+          {
+            value: '2017',
+            label: '2017级'
+          },
+          {
+            value: '2018',
+            label: '2018级'
+          },
+          {
+            value: '2019',
+            label: '2019级'
+          },
+          {
+            value: '2020',
+            label: '2020级'
+          }
+        ]
       }
     },
     methods: {
@@ -152,13 +247,30 @@
       addUser (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            const result = JSON.stringify(this.formValidate);
-            register(result).then(res => {
+            const userResult = JSON.stringify(this.userValidate);
+            register(userResult).then(res => {
               this.$Message.success("添加成功");
             }).catch((e)=>{
               console.log(error);
               this.$Message.error({
-                content: "注册失败",
+                content: "添加失败",
+                duration: 1.5,
+                closable: true
+              })
+            });
+          }
+        })
+      },
+      addAdmin (name) {
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            const adminResult = JSON.stringify(this.adminValidate);
+            addAdmin(adminResult).then(res => {
+              this.$Message.success("添加成功");
+            }).catch((e)=>{
+              console.log(error);
+              this.$Message.error({
+                content: "添加失败",
                 duration: 1.5,
                 closable: true
               })

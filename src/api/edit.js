@@ -2,7 +2,7 @@ import fetch from '@/utils/fetch';
 
 export function deleteAdmin(studentNo) {
   return fetch({
-    url: '/login/deleteAdmin',
+    url: '/edit/deleteAdmin',
     method: 'post',
     data: {
       studentNo,
@@ -12,10 +12,20 @@ export function deleteAdmin(studentNo) {
 
 export function deleteUser(studentNo) {
   return fetch({
-    url: '/login/deleteUser',
+    url: '/edit/deleteUser',
     method: 'post',
     data: {
       studentNo,
+    }
+  });
+}
+
+export function addAdmin(result) {
+  return fetch({
+    url: '/edit/addAdmin',
+    method: 'post',
+    data: {
+      result
     }
   });
 }

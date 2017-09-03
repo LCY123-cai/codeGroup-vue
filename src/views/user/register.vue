@@ -40,6 +40,7 @@
 <script>
 import { validatePhoneNumber } from '@/utils/validate';
 import { register } from '@/api/register';
+import { message } from 'iview';
 
     export default {
         data () {
