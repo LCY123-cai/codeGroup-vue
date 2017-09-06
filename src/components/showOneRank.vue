@@ -32,7 +32,7 @@
         showRank(this.keyId).then(res => {
           for(var i = 0; i < res.data.length; i++) {
             this.rankForm.push({
-              type: res.data[i].type === 1 ? '签到' : (res.data[i].type === 2 ? '参加活动' : (res.data[i].type === 3 ? '比赛' : '违规')),
+              type: res.data[i].type === 1 ? '签到' : (res.data[i].type === 2 ? '参加活动' : (res.data[i].type === 3 ? '比赛' : (res.data[i].type === 4 ? '违规' : '注册'))),
               alterNumber: res.data[i].alterNumber,
               alterDetail: res.data[i].alterDetail,
             });
