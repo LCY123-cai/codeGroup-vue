@@ -49,8 +49,7 @@
     <Modal
       v-model="rankModal"
       title="修改用户积分"
-      @on-ok="editRank('rankValidate')"
-      @on-cancel="cancel">
+      @on-ok="editRank('rankValidate')">
       <Form ref="rankValidate" :model="rankValidate" :rules="rankRule" :label-width="80">
         <FormItem label="学号" prop="studentNo">
           <Input v-model="rankValidate.studentNo" placeholder="请输入学号"></Input>
@@ -360,12 +359,6 @@
           }
         })
       },
-      ok () {
-        this.$Message.info('点击了确定');
-      },
-      cancel () {
-        this.$Message.info('点击了取消');
-      }
     }
   }
 </script>
