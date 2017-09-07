@@ -1,5 +1,5 @@
 <template>
-  <Table height="280" :columns="columns" :data="adminForm"></Table>
+  <Table height="350" :columns="columns" :data="adminForm"></Table>
 </template>
 <script>
   import { showAdmin } from '@/api/show';
