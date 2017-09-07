@@ -29,14 +29,33 @@
       <Col span="5">邮箱：{{ mail }}</Col>
       <Col span="12">QQ：{{ qq }}</Col>
     </Row>
+    <Row type="flex" justify="start" class="code-row-bg">
+      <Col span="8"></Col>
+      <Col span="12">
+      <Button type="success" @click="alter = true">修改密码</Button>
+      <Modal
+        v-model="alter"
+        title="修改密码"
+        @on-ok="alterPassword">
+        <p>原密码：</p>
+        <Input v-model="oldPassword" placeholder="请输入原密码" type="password"></Input>
+        <p>新密码：</p>
+        <Input v-model="newPassword" placeholder="请输入新密码" type="password"></Input>
+      </Modal>
+      </Col>
+    </Row>
   </div>
 </template>
 
 <script>
   import { showOneUser } from '@/api/show';
+  import { userAlterPassword } from '@/api/edit'
   export default {
     data() {
       return {
+        alter: false,
+        oldPassword: '',
+        newPassword: '',
         name: '',
         phone: '',
         studentNo: '',
@@ -66,6 +85,12 @@
           this.mail = res.data.mail;
           this.qq = res.data.qq;
         })
+      },
+      alterPassword() {
+        userAlterPassword(this.oldPassword,this.newPassword)
+          .then(res => {
+            this.$Message.success("修改成功");
+          })
       }
     }
   }

@@ -42,3 +42,25 @@ export function alterRank(studentNo, alterNumber, alterDetail, type) {
     }
   });
 }
+
+export function userAlterPassword(oldPassword, newPassword) {
+  return fetch({
+    url: '/alter/userAlterPassword',
+    method: 'post',
+    data: {
+      oldPassword,
+      newPassword
+    }
+  });
+}
+
+export function adminAlterPassword(oldPassword, newPassword) {
+  return fetch({
+    url: '/alter/adminAlterPassword',
+    method: 'post',
+    data: {
+      oldPassword,
+      newPassword
+    }
+  });
+}

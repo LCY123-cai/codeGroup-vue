@@ -22,4 +22,28 @@ export function userLogin(studentNo, password) {
   });
 }
 
+export function adminForgetPassword(studentNo, name, password) {
+  return fetch({
+    url: '/alter/adminForgetPassword',
+    method: 'post',
+    data: {
+      studentNo,
+      name,
+      password
+    }
+  });
+}
+
+export function userForgetPassword(studentNo, name, password) {
+  return fetch({
+    url: '/alter/userForgetPassword',
+    method: 'post',
+    data: {
+      studentNo,
+      name,
+      password
+    }
+  });
+}
+
 
