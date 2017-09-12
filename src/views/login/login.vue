@@ -27,6 +27,9 @@
           <FormItem label="姓名" prop="name">
             <Input v-model="alterForm.name" placeholder="请输入姓名"></Input>
           </FormItem>
+          <FormItem label="邮箱" prop="mail">
+            <Input v-model="alterForm.mail" placeholder="请输入邮箱"></Input>
+          </FormItem>
           <FormItem label="新密码" prop="password">
             <Input v-model="alterForm.password" placeholder="请输入新密码" type="password"></Input>
           </FormItem>
@@ -53,6 +56,7 @@
           studentNo: '',
           name: '',
           password: '',
+          mail: '',
           role: ''
         },
         loginForm: {
@@ -69,6 +73,10 @@
           ],
           password: [
             { required: true, message: '密码不能为空', trigger: 'blur' }
+          ],
+          mail: [
+            { required: true, message: '邮箱不能为空', trigger: 'blur' },
+            { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
           ],
           role: [
             { required: true, message: '请选择身份', trigger: 'change' }
@@ -117,12 +125,12 @@
         this.$refs[name].validate((valid) => {
           if (valid) {
             if (this.alterForm.role === 'admin') {
-              adminForgetPassword(this.alterForm.studentNo,this.alterForm.name,this.alterForm.password)
+              adminForgetPassword(this.alterForm.studentNo,this.alterForm.name,this.alterForm.password,this.alterForm.mail)
                 .then(() => {
                   this.$Message.success("修改成功");
                 })
             } else {
-              userForgetPassword(this.alterForm.studentNo,this.alterForm.name,this.alterForm.password)
+              userForgetPassword(this.alterForm.studentNo,this.alterForm.name,this.alterForm.password,this.alterForm.mail)
                 .then(() => {
                   this.$Message.success("修改成功");
                 })

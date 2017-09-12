@@ -108,6 +108,9 @@
             <Option v-for="item in positionList" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
         </FormItem>
+        <FormItem label="邮箱" prop="mail">
+          <Input v-model="adminValidate.mail" placeholder="请输入邮箱"></Input>
+        </FormItem>
         <FormItem>
           <Button type="ghost" @click="handleReset('adminValidate')" style="margin-left: 8px">重置</Button>
         </FormItem>
@@ -168,6 +171,7 @@
           studentNo: '',
           name: '',
           year: '',
+          mail: '',
         },
         rankValidate: {
           studentNo: '',
@@ -231,6 +235,10 @@
           ],
           position: [
             { required: true, message: '职位不能为空', trigger: 'change' }
+          ],
+          mail: [
+            { required: true, message: '邮箱不能为空', trigger: 'blur' },
+            { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
           ],
         },
         positionList: [

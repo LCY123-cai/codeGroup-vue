@@ -25,7 +25,7 @@
             <Input v-model="formValidate.major" placeholder="请输入专业"></Input>
         </FormItem>
         <FormItem label="邮箱" prop="mail">
-            <Input v-model="formValidate.mail" placeholder="请输入邮箱"></Input>
+            <Input v-model="formValidate.mail" placeholder="请输入邮箱(忘记密码时使用)"></Input>
         </FormItem>
         <FormItem label="QQ" prop="qq">
             <Input v-model="formValidate.qq" placeholder="请输入QQ号"></Input>
