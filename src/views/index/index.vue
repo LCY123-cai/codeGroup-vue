@@ -2,7 +2,7 @@
   <div class="hello">
     <img :src="logo">
     <h1>{{ msg }}</h1>
-    <h2>Developer：Stalary，Sumey</h2>
+    <h2>Developer：Stalary</h2>
     <Button type="info" @click="login">登陆</Button>
     <Button type="info" @click="register">注册</Button>
   </div>
@@ -14,7 +14,7 @@ import logo from '@/assets/codeLogo.png'
     name: 'hello',
     data () {
       return {
-        msg: '阿尔法程序协会人员管理系统',
+        msg: '阿尔法ACM程序协会人员管理系统',
         logo
       }
     },
