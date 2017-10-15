@@ -17,7 +17,7 @@
       </Col>
       <Col span="12">
       <span class="expand-key">注册日期：</span>
-      <span class="expand-value">{{ row.registerTime | formatDate }}</span>
+      <span class="expand-value">{{ row.registerTime }}</span>
       </Col>
     </Row>
     <Row class="expand-row">
@@ -37,13 +37,7 @@
   export default {
     props: {
       row: Object
-    },
-    filters: {
-        formatDate(time) {
-          var date = new Date(time);
-          return formatDate(date, 'yyyy-MM-dd hh:mm');
-        }
-    },
+    }
   };
 </script>
 <style scoped>
